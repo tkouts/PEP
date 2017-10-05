@@ -314,6 +314,13 @@ var dispatcher = {
     var target = event.target;
     var targets = [];
 
+    if (!target) {
+      // moved outside viewport
+      event.target = document.documentElement;
+      this.up(event);
+      return;
+    }
+
     // Order of conditions due to document.contains() missing in IE.
     while (target !== document && !target.contains(event.relatedTarget)) {
       targets.push(target);
